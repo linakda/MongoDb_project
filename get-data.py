@@ -1,5 +1,15 @@
 import requests
 import json
+from pymongo import MongoClient
+from pprint import pprint
+
+#test connection + création de collection
+client = MongoClient("mongo "mongodb+srv://cluster0.pnbit.gcp.mongodb.net/get-data" --username dbLina")
+db = client.test_database 
+
+collection = db.test_collection 
+
+
 
 # Lille
 def get_vlille():
@@ -23,9 +33,19 @@ def get_vlib():
     return reponse_json3.get("records", [])
 
 #test
-print(get_vlille())
-print(get_velov())
-print(get_vlib())
+vlilles = pprint(get_vlille())
 
+
+ #print(get_velov())
+ #print(get_vlib())
+
+ new_station={
+        'name':vlille['name'],
+        'ville':vlille['contractName'],
+        'localisation':[vlille['position']['latitude']['longitude']],
+        'tpe':vlille['banking']
+    }
+
+records.insert_one(new_station)
 
    
