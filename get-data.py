@@ -1,5 +1,6 @@
 import requests
 import json
+from pprint import pprint
 
 # Lille
 def get_vlille():
@@ -22,10 +23,18 @@ def get_vlib():
     reponse_json3 = json.loads(reponse3.text.encode('utf8'))
     return reponse_json3.get("records", [])
 
+# Rennes
+def get_velostar():
+    url = "https://data.rennesmetropole.fr/api/records/1.0/search/?dataset=stations_vls&q=&rows=3000&facet=etat&facet=nom&facet=tpe&facet=geo_point_2d&facet=nb_socles&facet=coordinates"
+    reponse3 = requests.request("GET", url)
+    reponse_json3 = json.loads(reponse3.text.encode('utf8'))
+    return reponse_json3.get("records", [])
+    
 #test
-print(get_vlille())
-print(get_velov())
-print(get_vlib())
+pprint(get_vlille())
+pprint(get_velov())
+pprint(get_vlib())
+pprint(get_velostar())
 
 
    
