@@ -25,7 +25,7 @@ def get_vlib():
 
 # Rennes
 def get_velostar():
-    url = "https://data.rennesmetropole.fr/api/records/1.0/search/?dataset=stations_vls&q=&rows=3000&facet=etat&facet=nom&facet=tpe&facet=geo_point_2d&facet=nb_socles&facet=coordinates"
+    url = "https://data.rennesmetropole.fr/api/records/1.0/search/?dataset=stations_vls&q=&rows=3000&facet=etat&facet=nom&facet=tpe&facet=geo_point_2d&facet=nb_socles"
     reponse3 = requests.request("GET", url)
     reponse_json3 = json.loads(reponse3.text.encode('utf8'))
     return reponse_json3.get("records", [])
