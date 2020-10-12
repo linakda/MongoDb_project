@@ -46,6 +46,9 @@ vlilles = pprint(get_vlille())
  #print(get_velov())
  #print(get_vlib())
 
+vlilles = get_vlille()
+
+for vlille in vlilles:
  new_station={
         'name':vlille['name'],
         'ville':vlille['contractName'],
