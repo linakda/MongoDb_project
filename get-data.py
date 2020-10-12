@@ -10,7 +10,7 @@ def get_vlille():
 
 # Lyon
 def get_velov():
-    url = "https://public.opendatasoft.com/explore/dataset/station-velov-grand-lyon/api/?dataset=station-velov-grand-lyon&q=&rows=3000&facet=name&facet=commune&facet=status&facet=available&facet"
+    url = "https://public.opendatasoft.com/api/records/1.0/search/?dataset=station-velov-grand-lyon&q=&facet=last_upd_1&fbclid=IwAR2JkyX5O-R1O3ZP_m6zmg-_cczhu4m2jFREdW2NmqHlhM9JpuWirYDiCoE"
     reponse2 = requests.request("GET",url)
     reponse_json2 = json.loads(reponse2.text.encode('utf8'))
     return reponse_json2.get("records",[])
@@ -22,7 +22,10 @@ def get_vlib():
     reponse_json3 = json.loads(reponse3.text.encode('utf8'))
     return reponse_json3.get("records", [])
 
+#test
 print(get_vlille())
+print(get_velov())
+print(get_vlib())
 
 
    
