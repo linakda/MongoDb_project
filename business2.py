@@ -3,6 +3,8 @@ import json
 from pprint import pprint
 from pymongo import MongoClient
 import time
+from flask import Flask, jsonify, request 
+from flask_cors import CORS
 
 
 # Business program:
@@ -27,25 +29,20 @@ def get_vlille():
 
 vlilles = get_vlille()
 
+app = Flask(__name__) 
 atlas = MongoClient('mongodb+srv://dbLina:isen2020@cluster0.io2qf.mongodb.net/BicycleStation?retryWrites=true&w=majority')
 
-#db=atlas.bicycle
-db = atlas['bicycle']
+db=atlas.get_database('bicycle')
+
+Table=db.SampleTable
+
+@app.route('/find-one/<argument>/<value>/', methods=['GET']) 
+def findOne(argument, value): 
+    queryObject = {argument: value} 
+    query = Table.find_one(queryObject) 
+    query.pop('_id') 
+    return jsonify(query) 
+
+findOne('nom',station)
 
 
-for elem in db.list_database_names:
-    try:
-        if elem==station:
-            print(elem)
-        elif elem.lower()==station.lower():
-            print(elem)
-#        if (elem.get('name'))==station:
- #           print(elem.get('name'))
-  #      elif (elem.get('name'))!=station:
-   #         start = [idx for idx in db if idx[0].lower() == station.lower()]
-    #        print("The list of matching first(s) letter(s): "+ str(start))
-     #   else:
-      #      print("We haven't found the station, you can try with the exact name or only the first letter.")
-
-    except AttributeError:
-        pass
