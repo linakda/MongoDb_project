@@ -12,7 +12,7 @@ atlas = MongoClient('mongodb+srv://dbLina:isen2020@cluster0.io2qf.mongodb.net/Bi
 db = atlas.bicycle
 
 db.datas.create_index([('station_id', 1),('date', -1)], unique=True)
-db.stations1.create_index(['geometry','2dsphere']) #stations1 = collection avec les données de l'API vlille
+db.stations1.create_index([('geometry','2dsphere')]) 
 
 def get_vlille():
     url = "https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=vlille-realtime&q=&rows=-1&facet=libelle&facet=nom&facet=commune&facet=etat&facet=type&facet=etatconnexion"
@@ -40,29 +40,30 @@ def get_station_id(id_ext):
 
 inp = input(' Enter 0 for manual coordinates input, enter 1 for auto-geolocalisation : ')
 
-def Manual(): 
-    print('Enter your latitude : ')
-    return 
+def Manual():
+    print('Entrez votre lat :')
+    lat = input()
+    print('Entrez votre lon')
+    lon = input()
+    print(lat,lon)
+    return (lat,lon)
 
 def Geoloc():
-     coord = get_user_lat_lon()
-     print coord['city'] + ' (' + coord['loc'] + ')'
-     return
+    coord = get_user_lat_lon()
+    print coord['city'] + ' (' + coord['loc'] + ')'
+    return coord['loc']
 
 switcher ={
-     0 : Manual,
-     1 : Geoloc,
+    0 : Manual,
+    1 : Geoloc,
  }
 
 
 #Saisie latitude/longitude
-print('Entrez votre lat :')
-lat = input()
-print('Entrez votre lon')
-lon = input()
+
 
 def get_nearest_station(lat,lon):
-   nearest= db.station1.find({'geometry': { 
+   nearest= db.stations1.find({'geometry': { 
       '$near': { '$geometry': {
         'type': "Point" ,
         'coordinates': [ lat, lon ]},
