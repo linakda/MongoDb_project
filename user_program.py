@@ -16,12 +16,12 @@ db = atlas.bicycle
 db.datas.create_index([('station_id', 1),('date', -1)], unique=True)
 db.stations1.create_index([('geometry','2dsphere')]) 
 
-def get_user_lat_lon():
-  try:
-    return json.load(urllib2.urlopen('http://ipinfo.io/json'))
-  except urllib2.HTTPError:
-    return False
-coord = get_user_lat_lon()
+# def get_user_lat_lon():
+#   try:
+#     return json.load(urllib2.urlopen('http://ipinfo.io/json'))
+#   except urllib2.HTTPError:
+#     return False
+# coord = get_user_lat_lon()
 
 def get_station_id(id_ext):
     tps = db.station1.find_one({ 'source.id_ext':id_ext }, { '_id': 1 })
@@ -34,18 +34,18 @@ def get_vlille():
     return response_json.get("records", [])
 
 
-inp = input(' Enter 0 for manual coordinates input, enter 1 for auto-geolocalisation : ')
+#inp = input(' Enter 0 for manual coordinates input, enter 1 for auto-geolocalisation : ')
 
-if inp==0:
-    print('Entrer latitude: ')
-    lat = input()
-    print('Entrer longitude: ')
-    lon = input()
-    print('Your position is: ', (lat,lon))
+#if inp==0:
+print('Entrer latitude: ')
+lat = input()
+print('Entrer longitude: ')
+lon = input()
+print('Your position is: ', (lat,lon))
   
-elif inp==1:
-    coord = get_user_lat_lon()
-    print 'You are in '+ coord['city']+ ' ('+ coord['loc'] + ')'
+# elif inp==1:
+#     coord = get_user_lat_lon()
+#     print 'You are in '+ coord['city']+ ' ('+ coord['loc'] + ')'
 
 
 def get_nearest_station(lat,lon):
