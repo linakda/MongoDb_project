@@ -26,6 +26,12 @@ def get_station():
         return 0
     else:
         return[length, findings]
+    
+    display = list(findings[1])
+    for finding in display:
+        pprint(finding)
+        print('\n')
+
 
 # TODO : adapt for first letters only
 #for elem in db.list_database_names:
@@ -45,10 +51,22 @@ def get_station():
 #    except AttributeError:
 #        pass
 
+
+# TODO: update station
+def update_station():
+    return 0
+
+
+def delete_station():
+    id = input("Please enter the id of the station to be deleted: ")
+    stations.delete_one({"_id":id})
+    print("\nThe station of id "+id+"has been deleted.\n")
+
+
 try:
-    business = input("You can choose to: \nSearch for a station with the entry: [S] \nUpdate a station: [U] \nDelete a station and datas: [D] \nAreawise delete stations: [A] \nPrint the percentage of bicycles used per station: [P]")
+    business = input("You can choose to: \nSearch for a station with the entry: [S] \nUpdate a station: [U] \nDelete a station and datas: [D] \nAreawise delete stations: [A] \nPrint the percentage of bicycles used per station: [P] \nFor any operation on a station you'll need its id. You can find it with the first entry: [S]")
     business = business.lower()
-    while business != 's' and business != 'u' and business != 'd' and business != 'p':
+    while business != 's' and business != 'u' and business != 'd' and business != 'a' and business != 'p':
         business = input("Please try again one of the following entries:")
         business = input("You can choose to: \nSearch for a station with the entry: [S] \nUpdate a station: [U] \nDelete a station and datas: [D] \nAreawise delete stations: [A] \nPrint the percentage of bicycles used per station: [P]")
     
@@ -56,6 +74,18 @@ try:
         search = get_station()
         while search == 0:
             business = input("No such station was found.")
+
+    if business =='u':
+        update = update_station()
+    
+    if business == 'd':
+        delete = delete_station()
+
+    if business == 'a':
+        0
+
+    if business == 'p':
+        0
 
 # TODO : proper list
 
