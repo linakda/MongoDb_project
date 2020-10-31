@@ -45,4 +45,17 @@ def get_station():
 #    except AttributeError:
 #        pass
 
+try:
+    business = input("You can choose to: \nSearch for a station with the entry: [S] \nUpdate a station: [U] \nDelete a station and datas: [D] \nAreawise delete stations: [A] \nPrint the percentage of bicycles used per station: [P]")
+    business = business.lower()
+    while business != 's' and business != 'u' and business != 'd' and business != 'p':
+        business = input("Please try again one of the following entries:")
+        business = input("You can choose to: \nSearch for a station with the entry: [S] \nUpdate a station: [U] \nDelete a station and datas: [D] \nAreawise delete stations: [A] \nPrint the percentage of bicycles used per station: [P]")
+    
+    if business == 's':
+        search = get_station()
+        while search == 0:
+            business = input("No such station was found.")
+
+# TODO : proper list
 
