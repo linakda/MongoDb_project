@@ -1,4 +1,3 @@
-import requests
 import re
 import json
 from pprint import pprint
@@ -57,13 +56,13 @@ def update_station(id, field, value):
 
 def area_station():
     stations_display=[]
-    with open("area.geojson",'r') as map:       # TODO explain & insert file &uncomment
+    with open("area.geojson",'r') as map:       # TODO
         map=map.read()
         data=json.loads(map)
- #       define=("geometry":{"$geoWithin": {"$geometry":data["features"][0]["geometry"]}}}
- #       concerned=stations.find(define)
-#        for station in concerned:
- #           stations_display.append(station["name"])
+        define={"geometry":{"$geoWithin": {"$geometry":data["features"][0]["geometry"]}}}
+        concerned=stations.find(define)
+        for station in concerned:
+            stations_display.append(station["name"])
         return stations_display
 
 try:
@@ -143,6 +142,7 @@ try:
 except Exception as alert:
     print("Failed. There may have been an error.")
     pprint(alert)
+    time.sleep(10)
 
 
 
