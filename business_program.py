@@ -46,15 +46,14 @@ def get_station():
 #    except AttributeError:
 #        pass
 
-# TODO: update station
-def update_station():
-    
-    return 0
-
 
 def delete_station(id):
     stations.delete_one({"_id":id})
 #    print("\nThe station of id "+id+" has been deleted.\n")
+
+
+def update_station(id, field, value):
+    stations.update_one({"_id":id},{"$set":{field: value}})
 
 
 try:
@@ -73,17 +72,7 @@ try:
         for finding in display:
             pprint(finding)
             print('\n')
-    
-    if business =='u':
-        search = get_station()
-        while search == 0:
-            business = input("No such station was found.")
-        print("\n%d station(s) correspond to your search:"%search[0])
-        display = list(search[1])
-        for finding in display:
-            pprint(finding)
-            print('\n')
-        update = update_station()
+
     
     if business == 'd':
         search = get_station()
@@ -98,6 +87,34 @@ try:
         pickI=display(pick)
         delete = delete_station(pickI["_id"])
         print("\nThe station "+pickI["name"]+" has been deleted.\n")
+
+
+    
+    if business =='u':
+        search = get_station()
+        while search == 0:
+            business = input("No such station was found.")
+        print("\n%d station(s) correspond to your search:"%search[0])
+        display = list(search[1])
+        for finding in display:
+            pprint(finding)
+            print('\n')
+        pick = int(input("Please enter the number of the station to be updated (from 0): "))
+        pickI=display(pick)
+        
+        change = int(input("You can change the name [0] \nor the size parameter/field [1]:"))
+        while change != 0 and change != 1:
+            change = int(input("Try again \nYou can change the name [0] \nor the length of the field [1]:"))
+        
+        if change ==0:
+            newName=("Enter the new name: ")
+            update = update_station(pickI["_id"],"name","newName")
+            print("\nThe station %s is now named %s"% pickI["name"], newName)
+
+        if change ==1:
+            newSize=("Enter the new length/size for the station: ")
+            update = update_station(pickI["_id"],"size","newSize")
+            print("\nThe station %s is now sizing %s"% pickI["name"], newSize)
 
 
     if business == 'a':
