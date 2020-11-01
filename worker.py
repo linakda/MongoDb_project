@@ -116,7 +116,7 @@ while True:
     velostar = get_velostar()
     datas = [
         {
-            "bike_availbale": elem.get('fields', {}).get('nb_socles'),
+            "bike_available": elem.get('fields', {}).get('nb_socles'),
             "date": dateutil.parser.parse(elem.get('fields', {}).get('d_mhs')),
             "station_id": get_station_id(elem.get('fields', {}).get('objectid'))
         }
