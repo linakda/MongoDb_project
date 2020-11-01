@@ -1,0 +1,11 @@
+# Python modules used for the project:
+#
+# requests
+# re
+# json
+# pprint
+# pymongo 
+# time
+# urllib2
+
+# dateutil.parser
