@@ -55,6 +55,16 @@ def delete_station(id):
 def update_station(id, field, value):
     stations.update_one({"_id":id},{"$set":{field: value}})
 
+def area_station():
+    stations_display=[]
+    with open("area.geojson",'r') as map:       # TODO explain & insert file &uncomment
+        map=map.read()
+        data=json.loads(map)
+ #       define=("geometry":{"$geoWithin": {"$geometry":data["features"][0]["geometry"]}}}
+ #       concerned=stations.find(define)
+#        for station in concerned:
+ #           stations_display.append(station["name"])
+        return stations_display
 
 try:
     business = input("You can choose to: \nSearch for a station with the entry: [S] \nUpdate a station: [U] \nDelete a station and datas: [D] \nAreawise delete stations: [A] \nPrint the percentage of bicycles used per station: [P] \nFor any operation on a station you'll need its id. You can find it with the first entry: [S]")
@@ -118,10 +128,21 @@ try:
 
 
     if business == 'a':
-        0
+        status = False
+        area_result = area_station(status)
+        print("\nDeleted stations:\n"+area_result)
 
+
+    #TODO
     if business == 'p':
         0
 
-# TODO : proper list
+    print("Done")
+
+
+except Exception as alert:
+    print("Failed. There may have been an error.")
+    pprint(alert)
+
+
 
