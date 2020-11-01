@@ -26,11 +26,6 @@ def get_station():
         return 0
     else:
         return[length, findings]
-    
-    display = list(findings[1])
-    for finding in display:
-        pprint(finding)
-        print('\n')
 
 
 # TODO : adapt for first letters only
@@ -51,16 +46,15 @@ def get_station():
 #    except AttributeError:
 #        pass
 
-
 # TODO: update station
 def update_station():
+    
     return 0
 
 
-def delete_station():
-    id = input("Please enter the id of the station to be deleted: ")
+def delete_station(id):
     stations.delete_one({"_id":id})
-    print("\nThe station of id "+id+"has been deleted.\n")
+#    print("\nThe station of id "+id+" has been deleted.\n")
 
 
 try:
@@ -74,12 +68,37 @@ try:
         search = get_station()
         while search == 0:
             business = input("No such station was found.")
-
+        print("\n%d station(s) correspond to your search:"%search[0])
+        display = list(search[1])
+        for finding in display:
+            pprint(finding)
+            print('\n')
+    
     if business =='u':
+        search = get_station()
+        while search == 0:
+            business = input("No such station was found.")
+        print("\n%d station(s) correspond to your search:"%search[0])
+        display = list(search[1])
+        for finding in display:
+            pprint(finding)
+            print('\n')
         update = update_station()
     
     if business == 'd':
-        delete = delete_station()
+        search = get_station()
+        while search == 0:
+            business = input("No such station was found.")
+        print("\n%d station(s) correspond to your search:"%search[0])
+        display = list(search[1])
+        for finding in display:
+            pprint(finding)
+            print('\n')
+        pick = int(input("Please enter the number of the station to be deleted (from 0): "))
+        pickI=display(pick)
+        delete = delete_station(pickI["_id"])
+        print("\nThe station "+pickI["name"]+" has been deleted.\n")
+
 
     if business == 'a':
         0
